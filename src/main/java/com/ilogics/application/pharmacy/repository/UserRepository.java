@@ -4,5 +4,5 @@ import com.ilogics.application.pharmacy.entity.UserEntity;
 
 public interface UserRepository {
 
-    UserEntity findByUsername(String username);
+    UserEntity getByUsername(String username);
 }
