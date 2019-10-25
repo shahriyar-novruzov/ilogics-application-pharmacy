@@ -23,9 +23,9 @@ public class UserRepositoryPostgres implements UserRepository {
     }
 
     @Override
-    public UserEntity getByUsername(String username) {
+    public UserEntity findByUsername(String username) {
 
-        logger.debug("getByUsername username: {}, template: {}", username, template);
+        logger.debug("findByUsername username: {}, template: {}", username, template);
 
         String sql = "select * from users where username = :username";
         SqlParameterSource param = new MapSqlParameterSource()
@@ -33,6 +33,20 @@ public class UserRepositoryPostgres implements UserRepository {
         List<UserEntity> entityList = template.query(sql, param, new UserRowMapper());
 
         logger.debug("getByUsername user: {}", entityList);
+
+        return entityList != null && entityList.size() > 0 ? entityList.get(0) : null;
+    }
+
+    @Override
+    public UserEntity findById(Long id) {
+        logger.debug("findById id: {}, template: {}", id, template);
+
+        String sql = "select * from users where id = :id";
+        SqlParameterSource param = new MapSqlParameterSource()
+                .addValue("id", id);
+        List<UserEntity> entityList = template.query(sql, param, new UserRowMapper());
+
+        logger.debug("getById user: {}", entityList);
 
         return entityList != null && entityList.size() > 0 ? entityList.get(0) : null;
     }

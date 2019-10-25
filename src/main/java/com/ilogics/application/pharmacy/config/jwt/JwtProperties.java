@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 @Data
 public class JwtProperties {
 
-    private String secretKey = "secretsecretsecretsecretsecretsecret";
+    private String secretKey = "QdfghTSAC6$&*@$@VNVSQ%@VHGSD(*(&%@@^$@SASA";
 
     //validity in milliseconds
-    private long validityInMs = 20000; // 1h
+    private long validityInMs = 3 * 3600 * 10000; // 1h
 }
