@@ -25,8 +25,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity user = userRepository.findByUsername(username);
 
-        logger.debug("loadUser {}", user);
-
         if (user == null) throw new UsernameNotFoundException("Username " + username + " not found");
 
         return user;
@@ -36,8 +34,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDto findUserById(Long id) {
 
         UserEntity user = userRepository.findById(id);
-
-        logger.debug("findUser {}", user);
 
         if (user == null) throw new UsernameNotFoundException("Id " + id + " not found");
 

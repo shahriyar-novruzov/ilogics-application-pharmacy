@@ -1,6 +1,6 @@
 package com.ilogics.application.pharmacy.service.impl;
 
-import com.ilogics.application.pharmacy.config.jwt.JwtTokenProvider;
+import com.ilogics.application.pharmacy.auth.JwtTokenUtil;
 import com.ilogics.application.pharmacy.model.AuthToken;
 import com.ilogics.application.pharmacy.model.UserDto;
 import com.ilogics.application.pharmacy.service.AuthenticationService;
@@ -14,16 +14,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
 
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenUtil jwtTokenUtil;
 
     private final UserService userService;
 
     public AuthenticationServiceImpl(AuthenticationManager authenticationManager,
                                      UserService userService,
-                                     JwtTokenProvider jwtTokenProvider) {
+                                     JwtTokenUtil jwtTokenUtil) {
         this.authenticationManager = authenticationManager;
         this.userService = userService;
-        this.jwtTokenProvider = jwtTokenProvider;
+        this.jwtTokenUtil = jwtTokenUtil;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginUser.getUsername(), loginUser.getPassword()));
 
-        String token = jwtTokenProvider.createToken(loginUser.getUsername());
+        String token = jwtTokenUtil.generateToken(loginUser.getUsername());
 
         return AuthToken
                 .builder()

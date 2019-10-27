@@ -25,28 +25,25 @@ public class UserRepositoryPostgres implements UserRepository {
     @Override
     public UserEntity findByUsername(String username) {
 
-        logger.debug("findByUsername username: {}, template: {}", username, template);
-
         String sql = "select * from users where username = :username";
         SqlParameterSource param = new MapSqlParameterSource()
                 .addValue("username", username);
         List<UserEntity> entityList = template.query(sql, param, new UserRowMapper());
 
-        logger.debug("getByUsername user: {}", entityList);
+        logger.debug("findByUsername user: {}", entityList);
 
         return entityList != null && entityList.size() > 0 ? entityList.get(0) : null;
     }
 
     @Override
     public UserEntity findById(Long id) {
-        logger.debug("findById id: {}, template: {}", id, template);
 
         String sql = "select * from users where id = :id";
         SqlParameterSource param = new MapSqlParameterSource()
                 .addValue("id", id);
         List<UserEntity> entityList = template.query(sql, param, new UserRowMapper());
 
-        logger.debug("getById user: {}", entityList);
+        logger.debug("findById user: {}", entityList);
 
         return entityList != null && entityList.size() > 0 ? entityList.get(0) : null;
     }
